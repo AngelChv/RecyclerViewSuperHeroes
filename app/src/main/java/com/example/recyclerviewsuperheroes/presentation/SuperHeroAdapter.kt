@@ -8,7 +8,7 @@ import com.example.recyclerviewsuperheroes.data.SuperHeroProvider
 import com.example.recyclerviewsuperheroes.domain.SuperHero
 
 class SuperHeroAdapter(
-    private val superHeroList: List<SuperHero>,
+    private val superHeroList: MutableList<SuperHero>,
     private val onClickListener: (Int) -> Unit,
     private val onLongClickListener: (Int) -> Unit,
 ) :
@@ -26,9 +26,10 @@ class SuperHeroAdapter(
     override fun getItemCount(): Int = superHeroList.size
 
     override fun onBindViewHolder(holder: SuperHeroViewHolder, position: Int) {
+        // Importante! no enviar esta position al holder, el ya tiene una propiedad
+        // adapterPosition que no da problemas
         holder.render(
             superHeroList[position],
-            position,
             SuperHeroProvider.itemsSelected.contains(position)
         )
     }

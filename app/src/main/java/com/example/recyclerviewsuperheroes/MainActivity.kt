@@ -1,6 +1,7 @@
 package com.example.recyclerviewsuperheroes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -34,11 +35,12 @@ class MainActivity : AppCompatActivity() {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
                 R.id.actionModeEdit -> {
-                    TODO()
+                    actionMode?.finish()
                     true
                 }
                 R.id.actionModeDelte -> {
-                    TODO()
+                    deleteSelectedItems()
+                    actionMode?.finish()
                     true
                 }
                 else -> false
@@ -47,14 +49,28 @@ class MainActivity : AppCompatActivity() {
 
         // Se llama cuando el usuario sale del menú
         override fun onDestroyActionMode(mode: ActionMode) {
+            // Si se destruye el action mode pero todavía hay elementos seleccionados
+            // se limpia la lista de las posiciones y se notifica el cambio
             val selectedItems = SuperHeroProvider.itemsSelected
-            binding.superHeroRecycler.adapter?.notifyItemRangeChanged(
-                selectedItems.min(),
-                selectedItems.max() - selectedItems.min() + 1
-            )
-            SuperHeroProvider.itemsSelected.clear()
+            selectedItems.forEach { position ->
+                binding.superHeroRecycler.adapter?.notifyItemChanged(position)
+            }
+            selectedItems.clear()
             actionMode = null
         }
+    }
+
+    private fun deleteSelectedItems() {
+        // Eliminar elementos de la lista de manera inversa por si acaso hay problemas con los indices
+        // y notificar las eliminaciones
+        val selectedItems = SuperHeroProvider.itemsSelected.sortedDescending()
+        selectedItems.forEach { position ->
+            SuperHeroProvider.superheroList.removeAt(position)
+            binding.superHeroRecycler.adapter?.notifyItemRemoved(position)
+        }
+        // Se limpia la lista de selección para que no se vuelva a limpiar en el onDestroyActionMode
+        // y por lo tanto no se vuelvan a notificar cambios, ya que los elementos ya se ha eliminado.
+        SuperHeroProvider.itemsSelected.clear()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,11 +141,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onActionModeItemClick(position: Int) {
+        Log.i("position", "$position")
         if (SuperHeroProvider.itemsSelected.contains(position)) {
+            // Item ya seleccionado, se elimina de la lista de seleccionados
             SuperHeroProvider.itemsSelected.remove(position)
+            // Si no hay ningún item seleccionado, se desactiva el actionMode
+            if (SuperHeroProvider.itemsSelected.isEmpty()) {
+                actionMode?.finish()
+                actionMode = null
+            }
         } else {
+            // Item sin seleccionar se selecciona
             SuperHeroProvider.itemsSelected.add(position)
         }
+
+        // Mostrar cuenta
+        actionMode?.title = "${SuperHeroProvider.itemsSelected.size}"
+
+        // Notifcar los cambios
         binding.superHeroRecycler.adapter?.notifyItemChanged(position)
     }
 }

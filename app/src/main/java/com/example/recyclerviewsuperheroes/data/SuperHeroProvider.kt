@@ -6,7 +6,7 @@ class SuperHeroProvider {
     companion object{
         var itemsSelected = mutableSetOf<Int>()
 
-        val superheroList = listOf(
+        val superheroList = mutableListOf(
             SuperHero(
                 "KotlinMan",
                 "Jetbrains",
@@ -62,55 +62,55 @@ class SuperHeroProvider {
                 "https://cursokotlin.com/wp-content/uploads/2017/07/wonder_woman.jpg"
             ),
             SuperHero(
-                "KotlinMan",
+                "KotlinMan2",
                 "Jetbrains",
                 "AristiDevs",
                 "https://cursokotlin.com/wp-content/uploads/2020/09/Webp.net-compress-image.jpg"
             ),
             SuperHero(
-                "Spiderman",
+                "Spiderman2",
                 "Marvel",
                 "Peter Parker",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/spiderman.jpg"
             ),
             SuperHero(
-                "Daredevil",
+                "Daredevil2",
                 "Marvel",
                 "Matthew Michael Murdock",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/daredevil.jpg"
             ),
             SuperHero(
-                "Wolverine",
+                "Wolverine2",
                 "Marvel",
                 "James Howlett",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/logan.jpeg"
             ),
             SuperHero(
-                "Batman",
+                "Batman2",
                 "DC",
                 "Bruce Wayne",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/batman.jpg"
             ),
             SuperHero(
-                "Thor",
+                "Thor2",
                 "Marvel",
                 "Thor Odinson",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/thor.jpg"
             ),
             SuperHero(
-                "Flash",
+                "Flash2",
                 "DC",
                 "Jay Garrick",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/flash.png"
             ),
             SuperHero(
-                "Green Lantern",
+                "Green Lantern2",
                 "DC",
                 "Alan Scott",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/green-lantern.jpg"
             ),
             SuperHero(
-                "Wonder Woman",
+                "Wonder Woman2",
                 "DC",
                 "Princess Diana",
                 "https://cursokotlin.com/wp-content/uploads/2017/07/wonder_woman.jpg"

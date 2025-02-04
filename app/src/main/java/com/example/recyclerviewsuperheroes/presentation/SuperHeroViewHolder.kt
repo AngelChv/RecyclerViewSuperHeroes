@@ -1,12 +1,9 @@
 package com.example.recyclerviewsuperheroes.presentation
 
-import android.content.DialogInterface.OnClickListener
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.recyclerviewsuperheroes.R
-import com.example.recyclerviewsuperheroes.data.SuperHeroProvider
 import com.example.recyclerviewsuperheroes.databinding.ItemSuperheroBinding
 import com.example.recyclerviewsuperheroes.domain.SuperHero
 
@@ -17,7 +14,7 @@ class SuperHeroViewHolder(
 ) : ViewHolder(itemView) {
     private val binding = ItemSuperheroBinding.bind(itemView)
 
-    fun render(superHero: SuperHero, position: Int, isSelected: Boolean) {
+    fun render(superHero: SuperHero, isSelected: Boolean) {
         binding.apply {
             if (isSelected) {
                 ivPhoto.setImageResource(R.drawable.check_box_24dp_e8eaed_fill0_wght400_grad0_opsz24)
@@ -47,11 +44,13 @@ class SuperHeroViewHolder(
 
             // Evento mediante lambda:
             itemView.setOnClickListener {
-                onClickListener(position)
+                // Muy importante! usar adapterPosition en lugar de recibir por parametro
+                // la posición que se recibe en el metodo onBindViewHolder del adapter.
+                onClickListener(adapterPosition)
             }
 
             itemView.setOnLongClickListener {
-                onLongClickListener(position)
+                onLongClickListener(adapterPosition)
                 // Si se no se quiere que se capture el longClick por más listeners se devuelve true
                 // Para indicar que se ha capturado el evento.
                 true
