@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/actionModeEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/edit_24dp_e8eaed_fill0_wght400_grad0_opsz24"
         android:title="@string/edit"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/actionModeDelte"
         android:icon="@drawable/delete_24dp_e8eaed_fill0_wght400_grad0_opsz24"
         android:title="@string/delte"
         app:showAsAction="ifRoom" />

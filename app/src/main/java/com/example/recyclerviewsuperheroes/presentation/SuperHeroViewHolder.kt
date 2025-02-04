@@ -12,12 +12,12 @@ import com.example.recyclerviewsuperheroes.domain.SuperHero
 
 class SuperHeroViewHolder(
     itemView: View,
-    private val onClickListener: (SuperHero) -> Unit,
-    private val onLongClickListener: (SuperHero) -> Unit,
+    private val onClickListener: (Int) -> Unit,
+    private val onLongClickListener: (Int) -> Unit,
 ) : ViewHolder(itemView) {
     private val binding = ItemSuperheroBinding.bind(itemView)
 
-    fun render(superHero: SuperHero, isSelected: Boolean) {
+    fun render(superHero: SuperHero, position: Int, isSelected: Boolean) {
         binding.apply {
             if (isSelected) {
                 ivPhoto.setImageResource(R.drawable.check_box_24dp_e8eaed_fill0_wght400_grad0_opsz24)
@@ -47,12 +47,15 @@ class SuperHeroViewHolder(
 
             // Evento mediante lambda:
             itemView.setOnClickListener {
-                onClickListener(superHero)
+                onClickListener(position)
             }
 
             itemView.setOnLongClickListener {
-                onLongClickListener(superHero)
+                onLongClickListener(position)
+                // Si se no se quiere que se capture el longClick por más listeners se devuelve true
+                // Para indicar que se ha capturado el evento.
                 true
+                // Si se va a manejar el evento en mas listeners se devuelve false.
             }
         }
     }

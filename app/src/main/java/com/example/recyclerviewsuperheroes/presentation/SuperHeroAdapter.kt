@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewsuperheroes.R
+import com.example.recyclerviewsuperheroes.data.SuperHeroProvider
 import com.example.recyclerviewsuperheroes.domain.SuperHero
 
 class SuperHeroAdapter(
     private val superHeroList: List<SuperHero>,
-    private val onClickListener: (SuperHero) -> Unit,
-    private val onLongClickListener: (SuperHero) -> Unit,
+    private val onClickListener: (Int) -> Unit,
+    private val onLongClickListener: (Int) -> Unit,
 ) :
     RecyclerView.Adapter<SuperHeroViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperHeroViewHolder {
@@ -25,6 +26,10 @@ class SuperHeroAdapter(
     override fun getItemCount(): Int = superHeroList.size
 
     override fun onBindViewHolder(holder: SuperHeroViewHolder, position: Int) {
-        holder.render(superHeroList[position])
+        holder.render(
+            superHeroList[position],
+            position,
+            SuperHeroProvider.itemsSelected.contains(position)
+        )
     }
 }
