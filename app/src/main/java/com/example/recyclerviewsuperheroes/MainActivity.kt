@@ -1,6 +1,7 @@
 package com.example.recyclerviewsuperheroes
 
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.example.recyclerviewsuperheroes.presentation.SuperHeroAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var isActionModeEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        initToolbar()
         initRecyclerView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // necesario para añadir el menú
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(binding.toolbar)
+        //binding.toolbar.inflateMenu(R.menu.main_menu)
     }
 
     private fun initRecyclerView() {
@@ -44,9 +58,11 @@ class MainActivity : AppCompatActivity() {
         binding.superHeroRecycler.layoutManager = layoutManager
 
         // Establecer el adaptador, pasando la lista:
-        binding.superHeroRecycler.adapter = SuperHeroAdapter(SuperHeroProvider.superheroList) { superHero ->
-            onItemSelected(superHero)
-        }
+        binding.superHeroRecycler.adapter = SuperHeroAdapter(
+            SuperHeroProvider.superheroList,
+            onLongClickListener = { onItemLongClick(it) },
+            onClickListener = { onItemSelected(it) },
+        )
 
         // Establecer decoración
         binding.superHeroRecycler.addItemDecoration(decoration)
@@ -54,5 +70,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun onItemSelected(superHero: SuperHero) {
         Toast.makeText(this, superHero.superHeroName, Toast.LENGTH_SHORT).show()
+        if (isActionModeEnabled) {
+
+        }
+    }
+
+    private fun onItemLongClick(superHero: SuperHero) {
+        isActionModeEnabled = true
+        // TODO: o necesito recibir la posición como parámetro o que la lista de selección sean SuperHero
+        //SuperHeroProvider.itemsSelected.add()
     }
 }

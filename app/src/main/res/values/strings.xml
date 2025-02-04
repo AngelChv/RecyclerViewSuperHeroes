@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">RecyclerViewSuperHeroes</string>
     <string name="super_hero_image">Super Hero image</string>
+    <string name="settings">Settings</string>
+    <string name="edit">Edit</string>
+    <string name="delte">Delte</string>
 </resources>

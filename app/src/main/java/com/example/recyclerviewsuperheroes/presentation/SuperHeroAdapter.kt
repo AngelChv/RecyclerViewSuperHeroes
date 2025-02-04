@@ -9,6 +9,7 @@ import com.example.recyclerviewsuperheroes.domain.SuperHero
 class SuperHeroAdapter(
     private val superHeroList: List<SuperHero>,
     private val onClickListener: (SuperHero) -> Unit,
+    private val onLongClickListener: (SuperHero) -> Unit,
 ) :
     RecyclerView.Adapter<SuperHeroViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperHeroViewHolder {
@@ -18,7 +19,7 @@ class SuperHeroAdapter(
         // Con attachToRoot false indicas que la vista no se añada al padre directamente.
         val superHeroView = inflater.inflate(R.layout.item_superhero, parent, false)
         // La vista se pasa al ViewHolder que se encarga de cargar los datos.
-        return SuperHeroViewHolder(superHeroView, onClickListener)
+        return SuperHeroViewHolder(superHeroView, onClickListener, onLongClickListener)
     }
 
     override fun getItemCount(): Int = superHeroList.size

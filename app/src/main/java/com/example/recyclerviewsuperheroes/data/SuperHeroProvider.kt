@@ -4,6 +4,8 @@ import com.example.recyclerviewsuperheroes.domain.SuperHero
 
 class SuperHeroProvider {
     companion object{
+        var itemsSelected = mutableListOf<Int>()
+
         val superheroList = listOf(
             SuperHero(
                 "KotlinMan",
