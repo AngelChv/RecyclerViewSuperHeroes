@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerviewsuperheroes.R
 import com.example.recyclerviewsuperheroes.data.SuperHeroProvider
 import com.example.recyclerviewsuperheroes.databinding.FragmentSuperHeroRecyclerBinding
+import com.example.recyclerviewsuperheroes.presentation.dialogs.SuperHeroFormDialog
 import com.example.recyclerviewsuperheroes.presentation.recycler.SuperHeroAdapter
 
 class SuperHeroRecyclerFragment : Fragment() {
@@ -39,6 +40,7 @@ class SuperHeroRecyclerFragment : Fragment() {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
                 R.id.actionModeEdit -> {
+                    editItem()
                     actionMode?.finish()
                     true
                 }
@@ -64,10 +66,6 @@ class SuperHeroRecyclerFragment : Fragment() {
             selectedItems.clear()
             actionMode = null
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -164,6 +162,20 @@ class SuperHeroRecyclerFragment : Fragment() {
         binding.superHeroRecycler.adapter?.notifyItemChanged(position)
     }
 
+    private fun editItem() {
+        val itemSelectedPosition = SuperHeroProvider.itemsSelected.first()
+        val superHeroFormDialog = SuperHeroFormDialog(itemSelectedPosition,
+            onSubmit = {
+                binding.superHeroRecycler.adapter?.notifyItemChanged(itemSelectedPosition)
+            })
+        activity?.let {
+            superHeroFormDialog.show(
+                it.supportFragmentManager,
+                "CustomDialog"
+            )
+        }
+    }
+
     private fun deleteSelectedItems() {
         // Eliminar elementos de la lista de manera inversa por si acaso hay problemas con los indices
         // y notificar las eliminaciones
@@ -180,7 +192,9 @@ class SuperHeroRecyclerFragment : Fragment() {
                 // y por lo tanto no se vuelvan a notificar cambios, ya que los elementos ya se ha eliminado.
                 SuperHeroProvider.itemsSelected.clear()
             }
-            setNegativeButton("No") { _, _ -> }
+            setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
         }.show()
 
     }

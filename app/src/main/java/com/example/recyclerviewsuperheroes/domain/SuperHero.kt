@@ -1,8 +1,8 @@
 package com.example.recyclerviewsuperheroes.domain
 
 data class SuperHero(
-    val superHeroName: String,
-    val publisher: String,
-    val realName: String,
-    val photo: String,
+    var superHeroName: String,
+    var publisher: String,
+    var realName: String,
+    var photo: String,
 )
