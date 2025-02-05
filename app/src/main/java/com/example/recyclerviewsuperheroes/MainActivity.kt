@@ -127,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         if (actionMode != null) {
          onActionModeItemClick(position)
         } else {
+            // TODO: abrir activity detalles
             val superHero = SuperHeroProvider.superheroList[position]
             Toast.makeText(this, superHero.superHeroName, Toast.LENGTH_SHORT).show()
         }
@@ -153,6 +154,15 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Item sin seleccionar se selecciona
             SuperHeroProvider.itemsSelected.add(position)
+        }
+
+        // Eliminar la opción de editar si hay mas de un elemento seleccionado.
+        actionMode?.menu?.let {
+            if (SuperHeroProvider.itemsSelected.size <= 1) {
+                it.findItem(R.id.actionModeEdit).setVisible(true)
+            } else {
+                it.findItem(R.id.actionModeEdit).setVisible(false)
+            }
         }
 
         // Mostrar cuenta
