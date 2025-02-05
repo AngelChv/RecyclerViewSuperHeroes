@@ -2,4 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav"/>
+    android:id="@+id/main_nav"
+    app:startDestination="@id/superHeroRecyclerFragment">
+
+    <fragment
+        android:id="@+id/superHeroRecyclerFragment"
+        android:name="com.example.recyclerviewsuperheroes.SuperHeroRecyclerFragment"
+        android:label="fragment_super_hero_recycler"
+        tools:layout="@layout/fragment_super_hero_recycler">
+        <action
+            android:id="@+id/action_superHeroRecyclerFragment_to_superHeroDetailsFragment"
+            app:destination="@id/superHeroDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/superHeroDetailsFragment"
+        android:name="com.example.recyclerviewsuperheroes.SuperHeroDetailsFragment"
+        android:label="fragment_super_hero_details"
+        tools:layout="@layout/fragment_super_hero_details" />
+</navigation>
