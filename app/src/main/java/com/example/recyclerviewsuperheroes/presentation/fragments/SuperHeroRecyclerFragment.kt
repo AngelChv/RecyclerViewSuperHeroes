@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.navigation.fragment.findNavController
@@ -167,12 +168,20 @@ class SuperHeroRecyclerFragment : Fragment() {
         // Eliminar elementos de la lista de manera inversa por si acaso hay problemas con los indices
         // y notificar las eliminaciones
         val selectedItems = SuperHeroProvider.itemsSelected.sortedDescending()
-        selectedItems.forEach { position ->
-            SuperHeroProvider.superheroList.removeAt(position)
-            binding.superHeroRecycler.adapter?.notifyItemRemoved(position)
-        }
-        // Se limpia la lista de selección para que no se vuelva a limpiar en el onDestroyActionMode
-        // y por lo tanto no se vuelvan a notificar cambios, ya que los elementos ya se ha eliminado.
-        SuperHeroProvider.itemsSelected.clear()
+
+        AlertDialog.Builder(binding.root.context).apply {
+            setTitle("Está seguro que desea eliminar ${selectedItems.size} super heroes?")
+            setPositiveButton("Si") { _, _ ->
+                selectedItems.forEach { position ->
+                    SuperHeroProvider.superheroList.removeAt(position)
+                    binding.superHeroRecycler.adapter?.notifyItemRemoved(position)
+                }
+                // Se limpia la lista de selección para que no se vuelva a limpiar en el onDestroyActionMode
+                // y por lo tanto no se vuelvan a notificar cambios, ya que los elementos ya se ha eliminado.
+                SuperHeroProvider.itemsSelected.clear()
+            }
+            setNegativeButton("No") { _, _ -> }
+        }.show()
+
     }
 }
