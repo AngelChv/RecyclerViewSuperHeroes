@@ -1,5 +1,6 @@
 package com.example.recyclerviewsuperheroes
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -128,6 +129,7 @@ class MainActivity : AppCompatActivity() {
          onActionModeItemClick(position)
         } else {
             // TODO: abrir activity detalles
+
             val superHero = SuperHeroProvider.superheroList[position]
             Toast.makeText(this, superHero.superHeroName, Toast.LENGTH_SHORT).show()
         }
