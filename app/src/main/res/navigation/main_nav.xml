@@ -7,17 +7,22 @@
 
     <fragment
         android:id="@+id/superHeroRecyclerFragment"
-        android:name="com.example.recyclerviewsuperheroes.SuperHeroRecyclerFragment"
-        android:label="fragment_super_hero_recycler"
+        android:name="com.example.recyclerviewsuperheroes.presentation.fragments.SuperHeroRecyclerFragment"
+        android:label="Lista de Super Heroes"
         tools:layout="@layout/fragment_super_hero_recycler">
         <action
             android:id="@+id/action_superHeroRecyclerFragment_to_superHeroDetailsFragment"
-            app:destination="@id/superHeroDetailsFragment" />
+            app:destination="@id/superHeroDetailsFragment"
+            app:popUpTo="@id/superHeroRecyclerFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/superHeroDetailsFragment"
-        android:name="com.example.recyclerviewsuperheroes.SuperHeroDetailsFragment"
-        android:label="fragment_super_hero_details"
-        tools:layout="@layout/fragment_super_hero_details" />
+        android:name="com.example.recyclerviewsuperheroes.presentation.fragments.SuperHeroDetailsFragment"
+        android:label="Detalles"
+        tools:layout="@layout/fragment_super_hero_details" >
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.recyclerviewsuperheroes
+package com.example.recyclerviewsuperheroes.presentation.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +11,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recyclerviewsuperheroes.R
 import com.example.recyclerviewsuperheroes.data.SuperHeroProvider
 import com.example.recyclerviewsuperheroes.databinding.FragmentSuperHeroRecyclerBinding
-import com.example.recyclerviewsuperheroes.presentation.SuperHeroAdapter
+import com.example.recyclerviewsuperheroes.presentation.recycler.SuperHeroAdapter
 
 class SuperHeroRecyclerFragment : Fragment() {
     private lateinit var binding: FragmentSuperHeroRecyclerBinding
@@ -39,11 +41,13 @@ class SuperHeroRecyclerFragment : Fragment() {
                     actionMode?.finish()
                     true
                 }
+
                 R.id.actionModeDelte -> {
                     deleteSelectedItems()
                     actionMode?.finish()
                     true
                 }
+
                 else -> false
             }
         }
@@ -66,8 +70,7 @@ class SuperHeroRecyclerFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Importante! crear el binding asi:
         binding = FragmentSuperHeroRecyclerBinding.inflate(inflater, container, false)
@@ -108,10 +111,13 @@ class SuperHeroRecyclerFragment : Fragment() {
         if (actionMode != null) {
             onActionModeItemClick(position)
         } else {
-            // TODO: abrir activity detalles
-
             val superHero = SuperHeroProvider.superheroList[position]
             Toast.makeText(binding.root.context, superHero.superHeroName, Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(
+                SuperHeroRecyclerFragmentDirections
+                    .actionSuperHeroRecyclerFragmentToSuperHeroDetailsFragment(position)
+            )
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.recyclerviewsuperheroes.presentation
+package com.example.recyclerviewsuperheroes.presentation.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

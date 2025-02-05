@@ -1,4 +1,4 @@
-package com.example.recyclerviewsuperheroes.presentation
+package com.example.recyclerviewsuperheroes.presentation.recycler
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
