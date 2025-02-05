@@ -2,19 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/imListBottomNav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/superHeroRecyclerFragment"
         android:icon="@drawable/baseline_format_list_bulleted_24"
         android:title="List" />
 
     <item
-        android:id="@+id/imAddSHBottomNav"
+        android:id="@+id/superHeroFormFragment"
         android:icon="@drawable/baseline_add_circle_24"
         android:title="New" />
 
     <item
-        android:id="@+id/imProfileBottomNav"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/baseline_account_circle_24"
         android:title="Profile" />
 </menu>

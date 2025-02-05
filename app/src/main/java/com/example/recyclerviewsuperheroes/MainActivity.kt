@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.recyclerviewsuperheroes.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -27,9 +29,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Toolbar
-        setSupportActionBar(binding.toolbar)
+        initNavController()
+        initToolBar()
+        initBottomNavigation()
+    }
 
+    private fun initNavController() {
         // Obtener navController a través del navHostFragment
         // Con otras formas como estas me daba error
         // binding.fragmentContainerView.findNavController()
@@ -37,6 +42,34 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
+    }
+
+    private fun initBottomNavigation() {
+        binding.bottomNav.setupWithNavController(navController)
+        // Si lo quires personalizar se puede hacer:
+        /*
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+                R.id.searchFragment -> {
+                    navController.navigate(R.id.searchFragment)
+                    true
+                }
+                R.id.profileFragment -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+        */
+    }
+
+    private fun initToolBar() {
+        setSupportActionBar(binding.toolbar)
 
         // Configura el ActionBar para trabajar con NavController
         val appBarConfiguration = AppBarConfiguration(navController.graph)

@@ -25,4 +25,15 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/superHeroFormFragment"
+        android:name="com.example.recyclerviewsuperheroes.presentation.fragments.SuperHeroFormFragment"
+        android:label="fragment_super_hero_form"
+        tools:layout="@layout/fragment_super_hero_form" >
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.recyclerviewsuperheroes.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
